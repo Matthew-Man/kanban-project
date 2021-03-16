@@ -4,7 +4,9 @@ import './App.css';
 function App() {
   return (
     <div>
-      <p>Hello, World!</p>
+      <div className="header">
+        <h2>Matt's Kanban Board</h2>
+      </div>
     </div>
   );
 }
