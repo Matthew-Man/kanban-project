@@ -1,0 +1,40 @@
+.outer-container {
+    border-bottom: 0.5px solid #edf0f2;
+}
+
+.stage-container {
+    padding: 15px;
+}
+
+.stage-container input {
+    width: 200px;
+    padding: 8px 16px;
+    line-height: 16px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: inherit;
+    border-radius: 3px 0px 0px 3px;
+    border-width: 0.5px;
+    border-style: solid;
+    border-color: #d1ddff;
+}
+
+.stage-container button {
+    color: #193147;
+    padding: 8px 16px;
+    line-height: 16px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: inherit;
+    border-radius: 0px 3px 3px 0px;
+    border-width: 0.5px;
+    border-style: solid;
+    border-color: #d1ddff;
+    background-color:#e0e8ff;
+    transition: 0.5s;
+}
+
+.stage-container button:hover {
+    color: white;
+    background-color:#193147;
+}
