@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import "./components.css";
 import { Task } from "./task";
 
@@ -8,6 +10,7 @@ export function StageColumn() {
             <br/>
             <Task />
             <Task />
+            <button className="add-task"><FontAwesomeIcon icon={faPlus}/> Add Task</button>
         </div>
     )
 };

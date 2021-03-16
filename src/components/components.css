@@ -57,3 +57,9 @@
     margin-bottom: 5px;
     padding: 10px;
 }
+
+.add-task {
+    margin-top: 5px;
+    padding: 10px;
+    text-align: left;
+}
