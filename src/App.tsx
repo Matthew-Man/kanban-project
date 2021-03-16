@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import { AddStages } from './components/add_stage';
+import { StageColumn } from './components/stage_column';
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
         <h2>Matt's Kanban Board</h2>
       </div>
       <AddStages/>
+      <StageColumn />
     </div>
   );
 }
