@@ -63,3 +63,9 @@
     padding: 10px;
     text-align: left;
 }
+
+.all-stage-columns {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}

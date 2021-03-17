@@ -2,11 +2,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import "./components.css";
 import { Task } from "./task";
+import { AllStagesProps } from "./interface";
 
-export function StageColumn() {
+interface IStageColumn {
+    name: string
+}
+
+
+function StageColumn({name}: IStageColumn) {
     return (
         <div className="stage-column-container">
-            <h3>Stage Name (2)</h3>
+            <h3>{name} (2)</h3>
             <br/>
             <Task />
             <Task />
@@ -14,3 +20,12 @@ export function StageColumn() {
         </div>
     )
 };
+
+export default function AllStages({columns} : AllStagesProps) {
+    console.log("all stage", columns)
+    return(
+        <div className="all-stage-columns">
+            {columns.map((item) => <StageColumn name={item.name}/>)}
+        </div>
+    )
+}

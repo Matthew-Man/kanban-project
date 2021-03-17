@@ -1,16 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { AddStages } from './components/add_stage';
-import { StageColumn } from './components/stage_column';
+import AllStages from './components/stage_column';
+import {IColumns} from "./components/interface";
+import { useEffect } from 'react';
 
 function App() {
+  const [columns, setColumns] = useState<IColumns[]>([]);
+  const [columnInput, setColumnInput] = useState("");
+
+  async function getColumns() {
+    const res = await fetch("http://localhost:4000/columns");
+    const {data} = await res.json();
+    console.log("array of object", data)
+    setColumns(data) 
+  };
+
+  useEffect(() => {getColumns()}, [])
+
   return (
     <div>
       <div className="header">
         <h2>Matt's Kanban Board</h2>
       </div>
       <AddStages/>
-      <StageColumn />
+      <AllStages columns={columns} />
     </div>
   );
 }
