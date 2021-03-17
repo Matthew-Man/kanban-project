@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 
 function App() {
   const [columns, setColumns] = useState<IColumns[]>([]);
-  const [columnInput, setColumnInput] = useState("");
+  // const [columnInput, setColumnInput] = useState("");
 
   async function getColumns() {
     const res = await fetch("http://localhost:4000/columns");
