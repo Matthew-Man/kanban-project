@@ -7,36 +7,40 @@ import { useEffect, useState } from "react";
 
 interface IStageColumn {
     name: string,
-    id: number
+    id: number,
+    columnSize: number
 }
 
-
-function StageColumn({name, id}: IStageColumn) {
+function StageColumn({name, id, columnSize}: IStageColumn) {
     const [tasks, setTasks] = useState<ITask[]>([])
 
     async function getTasks() {
-        const res = await fetch("http://localhost:4000/tasks");
+        const res = await fetch(`http://localhost:4000/tasks/${id}`);
         const {data} = await res.json();
         setTasks(data) 
     }
 
-    useEffect(() => {getTasks()}, [])
+    //Ask in OH why this is happening
+    useEffect(() => {
+        getTasks()
+    }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div className="stage-column-container">
             <h3>{name} (2) (id:{id})</h3>
             <br/>
-            {tasks.map((item) => <Task description={item.task_description}/>)}
+            {tasks.map((item) => <Task description={item.task_description} columnSize={columnSize} stage_id={id} task_id={item.id}/>)}
             <button className="add-task"><FontAwesomeIcon icon={faPlus}/> Add Task</button>
         </div>
     )
 };
 
+
 export default function AllStages({columns} : AllStagesProps) {
-    console.log("all stage", columns)
+    const numOfColumns = columns.length;
     return(
         <div className="all-stage-columns">
-            {columns.map((item) => <StageColumn name={item.name} id={item.id}/>)}
+            {columns.map((item) => <StageColumn name={item.name} id={item.id} columnSize={numOfColumns}/>)}
         </div>
     )
 }
