@@ -12,7 +12,6 @@ function App() {
   async function getColumns() {
     const res = await fetch("http://localhost:4000/columns");
     const {data} = await res.json();
-    console.log("array of object", data)
     setColumns(data) 
   };
 
@@ -24,7 +23,7 @@ function App() {
         <h2>Matt's Kanban Board</h2>
       </div>
       <AddStages/>
-      <AllStages columns={columns} />
+      <AllStages columns={columns} getColumns={getColumns}/>
     </div>
   );
 }

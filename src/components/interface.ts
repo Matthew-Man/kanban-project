@@ -12,4 +12,5 @@ export interface ITask {
 
 export interface AllStagesProps {
     columns: IColumns[]
+    getColumns: () => Promise<void>
 }
