@@ -2,7 +2,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import "./components.css";
 import { Task } from "./task";
-import { AllStagesProps } from "./interface";
+import { AllStagesProps, ITask } from "./interface";
+import { useEffect, useState } from "react";
 
 interface IStageColumn {
     name: string,
@@ -11,21 +12,21 @@ interface IStageColumn {
 
 
 function StageColumn({name, id}: IStageColumn) {
-    const demoTasks = [{
-        id: 1,
-        stage_id: 1,
-        task_description: "demo task description"
-        },{
-        id: 2,
-        stage_id: 1,
-        task_description: "demo task description 2"
-    }]
+    const [tasks, setTasks] = useState<ITask[]>([])
+
+    async function getTasks() {
+        const res = await fetch("http://localhost:4000/tasks");
+        const {data} = await res.json();
+        setTasks(data) 
+    }
+
+    useEffect(() => {getTasks()}, [])
 
     return (
         <div className="stage-column-container">
             <h3>{name} (2) (id:{id})</h3>
             <br/>
-            {demoTasks.map((item) => <Task description={item.task_description}/>)}
+            {tasks.map((item) => <Task description={item.task_description}/>)}
             <button className="add-task"><FontAwesomeIcon icon={faPlus}/> Add Task</button>
         </div>
     )
