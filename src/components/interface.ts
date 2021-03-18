@@ -9,7 +9,3 @@ export interface ITask {
     stage_id: number,
     task_description: string
 }
-
-export interface AllStagesProps {
-    columns: IColumns[]
-}

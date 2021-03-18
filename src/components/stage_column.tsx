@@ -2,40 +2,41 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import "./components.css";
 import { Task } from "./task";
-import { AllStagesProps } from "./interface";
+import { IColumns, ITask } from "./interface";
 
 interface IStageColumn {
     name: string,
     id: number
+    columnTasks: ITask[]
+}
+
+interface AllStagesProps {
+    columns: IColumns[],
+    allTasks: ITask[]
 }
 
 
-function StageColumn({name, id}: IStageColumn) {
-    const demoTasks = [{
-        id: 1,
-        stage_id: 1,
-        task_description: "demo task description"
-        },{
-        id: 2,
-        stage_id: 1,
-        task_description: "demo task description 2"
-    }]
+export default function AllStages({columns, allTasks} : AllStagesProps) {
+    return(
+        <div className="all-stage-columns">
+            {columns.map((column) => {
+                const tasksForColumn = allTasks.filter((task) => column.id === task.stage_id);
+                return (
+                    <StageColumn name={column.name} id={column.id} columnTasks={tasksForColumn} key={column.id}/>
+                )
+            })}
+        </div>
+    )
+}
 
+
+function StageColumn({name, id, columnTasks}: IStageColumn) {
     return (
         <div className="stage-column-container">
             <h3>{name} (2) (id:{id})</h3>
             <br/>
-            {demoTasks.map((item) => <Task description={item.task_description}/>)}
+            {columnTasks.map((item) => <Task description={item.task_description} key={item.id}/>)}
             <button className="add-task"><FontAwesomeIcon icon={faPlus}/> Add Task</button>
         </div>
     )
 };
-
-export default function AllStages({columns} : AllStagesProps) {
-    console.log("all stage", columns)
-    return(
-        <div className="all-stage-columns">
-            {columns.map((item) => <StageColumn name={item.name} id={item.id}/>)}
-        </div>
-    )
-}
