@@ -70,3 +70,37 @@
     flex-wrap: nowrap;
     align-items: flex-start;
 }
+
+/* Modal Styling */
+.modal {
+    /* display: none; */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #f4f4f4;
+    margin: 10% auto;
+    padding: 20px;
+    width: 70%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+.close-modal {
+    color: #9b9b9b;
+    float: right;
+    font-size: 24px;
+    padding: 4px;
+}
+
+.close-modal:hover {
+    color: #494949;
+    cursor: pointer;
+}

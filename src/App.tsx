@@ -4,11 +4,14 @@ import { AddStages } from './components/add_stage';
 import AllStages from './components/stage_column';
 import {IColumns, ITask} from "./components/interface";
 import { useEffect } from 'react';
+import { ModalBox } from './components/modal';
 
 
 function App() {
   const [columns, setColumns] = useState<IColumns[]>([]);
   const [allTasks, setAllTasks] = useState<ITask[]>([])
+  // const [isModalShown, toggleModalShown] = useState(false);
+  // const [modalInput, setModalInput] = useState("")
 
 
   async function fetchAllColumns() {
@@ -40,6 +43,10 @@ function App() {
     fetchAllTasks();
   }
 
+  // function handleAddTask(column_id: number) {
+
+  // }
+
   return (
     <div>
       <div className="header">
@@ -47,6 +54,7 @@ function App() {
       </div>
       <AddStages/>
       <AllStages columns={columns} allTasks={allTasks} handleTaskMoving={handleTaskMoving}/>
+      <ModalBox/>
     </div>
   );
 }
