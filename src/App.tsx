@@ -10,7 +10,7 @@ function App() {
   const [columns, setColumns] = useState<IColumns[]>([]);
   const [allTasks, setAllTasks] = useState<ITask[]>([])
 
-  
+
   async function fetchAllColumns() {
     const res = await fetch("http://localhost:4000/columns");
     const {data} = await res.json();
@@ -25,9 +25,20 @@ function App() {
   }
 
 
-  useEffect(() => {fetchAllColumns()}, [])
-  useEffect(() => {fetchAllTasks()}, [])
+  useEffect(() => {fetchAllColumns()}, []);
+  useEffect(() => {fetchAllTasks()}, []);
   
+
+  async function handleTaskMoving(direction: string, taskId: number, stage_id: number) {
+    let newStageId: number;
+    if (direction === "left") {
+      newStageId = stage_id - 1
+    } else {
+      newStageId = stage_id + 1
+    }
+    await fetch(`http://localhost:4000/tasks/${taskId}/${newStageId}`, {method: "POST"});
+    fetchAllTasks();
+  }
 
   return (
     <div>
@@ -35,7 +46,7 @@ function App() {
         <h2>Matt's Kanban Board</h2>
       </div>
       <AddStages/>
-      <AllStages columns={columns} allTasks={allTasks}/>
+      <AllStages columns={columns} allTasks={allTasks} handleTaskMoving={handleTaskMoving}/>
     </div>
   );
 }
