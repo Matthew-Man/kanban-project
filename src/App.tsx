@@ -10,8 +10,10 @@ import { ModalBox } from './components/modal';
 function App() {
   const [columns, setColumns] = useState<IColumns[]>([]);
   const [allTasks, setAllTasks] = useState<ITask[]>([])
-  // const [isModalShown, toggleModalShown] = useState(false);
+  const [isModalShown, setModalShown] = useState(true);
   // const [modalInput, setModalInput] = useState("")
+
+  const toggleModalShown = () => setModalShown(!isModalShown);
 
 
   async function fetchAllColumns() {
@@ -47,14 +49,23 @@ function App() {
 
   // }
 
+
+  const propsAllStages = {
+    columns: columns,
+    allTasks: allTasks,
+    handleTaskMoving: handleTaskMoving,
+    toggleModalShown: toggleModalShown
+  }
+
+
   return (
     <div>
       <div className="header">
         <h2>Matt's Kanban Board</h2>
       </div>
       <AddStages/>
-      <AllStages columns={columns} allTasks={allTasks} handleTaskMoving={handleTaskMoving}/>
-      <ModalBox/>
+      <AllStages {...propsAllStages}/>
+      <ModalBox isModalShown={isModalShown} toggleModalShown={toggleModalShown}/>
     </div>
   );
 }

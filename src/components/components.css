@@ -73,7 +73,6 @@
 
 /* Modal Styling */
 .modal {
-    /* display: none; */
     position: fixed;
     z-index: 1;
     left: 0;
@@ -82,6 +81,10 @@
     width: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.4);
+}
+
+.hide {
+    display: none;
 }
 
 .modal-content {
@@ -104,3 +107,32 @@
     color: #494949;
     cursor: pointer;
 }
+
+.modal-input {
+    width: ;
+}
+
+.modal-add-button-container {
+    padding-top: 10px;
+}
+
+.modal-button {
+    display:inline-block;
+    padding:0.5em 3em;
+    border:0.16em solid #1d4162;
+    margin:0 0.3em 0.3em 0;
+    box-sizing: border-box;
+    text-decoration:none;
+    text-transform:uppercase;
+    font-family:'Roboto',sans-serif;
+    font-weight:400;
+    color:#1d4162;
+    text-align:center;
+    transition: all 0.15s;
+}
+
+.modal-button:hover {
+    background-color: #1d4162;
+    color: #fff;
+}
+

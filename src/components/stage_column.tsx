@@ -10,37 +10,51 @@ interface IStageColumn {
     columnTasks: ITask[],
     handleTaskMoving: (direction: string, taskId: number, stage_id: number) => Promise<void>,
     maxColumns: number
+    toggleModalShown: () => void
 }
 
 interface AllStagesProps {
     columns: IColumns[],
     allTasks: ITask[],
-    handleTaskMoving: (direction: string, taskId: number, stage_id: number) => Promise<void>
+    handleTaskMoving: (direction: string, taskId: number, stage_id: number) => Promise<void>,
+    toggleModalShown: () => void
 }
 
 
-export default function AllStages({columns, allTasks, handleTaskMoving} : AllStagesProps) {
+export default function AllStages({columns, allTasks, handleTaskMoving, toggleModalShown} : AllStagesProps) {
     const maxColumns = columns.length;
+
+    function createStageColumn(column: IColumns) {
+        const tasksForColumn = allTasks.filter((task) => column.id === task.stage_id);
+        const propsStageColumn = {
+            name: column.name,
+            id: column.id,
+            columnTasks: tasksForColumn,
+            key: column.id,
+            handleTaskMoving: handleTaskMoving,
+            maxColumns: maxColumns,
+            toggleModalShown: toggleModalShown
+        }
+        return (
+            <StageColumn {...propsStageColumn}/>
+        )
+    }
+    
     return(
         <div className="all-stage-columns">
-            {columns.map((column) => {
-                const tasksForColumn = allTasks.filter((task) => column.id === task.stage_id);
-                return (
-                    <StageColumn name={column.name} id={column.id} columnTasks={tasksForColumn} key={column.id} handleTaskMoving={handleTaskMoving} maxColumns={maxColumns}/>
-                )
-            })}
+            {columns.map(createStageColumn)}
         </div>
     )
 }
 
 
-function StageColumn({name, id, columnTasks, handleTaskMoving, maxColumns}: IStageColumn) {
+function StageColumn({name, id, columnTasks, handleTaskMoving, maxColumns, toggleModalShown}: IStageColumn) {
     return (
         <div className="stage-column-container">
             <h3>{name} (2) (id:{id})</h3>
             <br/>
             {columnTasks.map((item) => <Task task={item} handleTaskMoving={handleTaskMoving} maxColumns={maxColumns} key={item.id}/>)}
-            <button className="add-task"><FontAwesomeIcon icon={faPlus}/> Add Task</button>
+            <button className="modal-button" onClick={() => toggleModalShown()}><FontAwesomeIcon icon={faPlus}/> Add Task</button>
         </div>
     )
 };
