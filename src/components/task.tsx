@@ -15,8 +15,8 @@ export function Task({task, handleTaskMoving, maxColumns} : ITaskHandle) {
         <div className="task-container">
             <p>{task_description}</p>
             <div className="task-move-container">
-                <button onClick={() => id === 1 ? alert("Sorry, it looks like you've reached the edge of the columns!") : handleTaskMoving("left", id, stage_id)}>&lt;</button>
-                <button onClick={() => id === maxColumns ? alert("Sorry, it looks like you've reached the edge of the columns!") : handleTaskMoving("right", id, stage_id)}>&gt;</button>
+                <button onClick={() => stage_id === 1 ? alert("Sorry, it looks like you've reached the edge of the columns!") : handleTaskMoving("left", id, stage_id)}>&lt;</button>
+                <button onClick={() => stage_id === maxColumns ? alert("Sorry, it looks like you've reached the edge of the columns!") : handleTaskMoving("right", id, stage_id)}>&gt;</button>
             </div>
         </div>
     )

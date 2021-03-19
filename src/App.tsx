@@ -9,13 +9,13 @@ import { ModalBox } from './components/modal';
 
 function App() {
   const [columns, setColumns] = useState<IColumns[]>([]);
-  const [allTasks, setAllTasks] = useState<ITask[]>([])
-  const [isModalShown, setModalShown] = useState(true);
-  // const [modalInput, setModalInput] = useState("")
+  const [allTasks, setAllTasks] = useState<ITask[]>([]);
+  const [isModalShown, setModalShown] = useState(false);
+  const [modalInput, setModalInput] = useState("");
 
   const toggleModalShown = () => setModalShown(!isModalShown);
 
-
+  
   async function fetchAllColumns() {
     const res = await fetch("http://localhost:4000/columns");
     const {data} = await res.json();
@@ -41,7 +41,7 @@ function App() {
     } else {
       newStageId = stage_id + 1
     }
-    await fetch(`http://localhost:4000/tasks/${taskId}/${newStageId}`, {method: "POST"});
+    await fetch(`http://localhost:4000/tasks/${taskId}/${newStageId}`, {method: "PUT"});
     fetchAllTasks();
   }
 
@@ -54,7 +54,7 @@ function App() {
     columns: columns,
     allTasks: allTasks,
     handleTaskMoving: handleTaskMoving,
-    toggleModalShown: toggleModalShown
+    toggleModalShown: toggleModalShown,
   }
 
 
@@ -65,9 +65,9 @@ function App() {
       </div>
       <AddStages/>
       <AllStages {...propsAllStages}/>
-      <ModalBox isModalShown={isModalShown} toggleModalShown={toggleModalShown}/>
+      <ModalBox isModalShown={isModalShown} toggleModalShown={toggleModalShown} modalInput={modalInput} setModalInput={setModalInput}/>
     </div>
   );
 }
-
+// modalInput={modalInput} setModalInput={setModalInput}
 export default App;
