@@ -15,7 +15,7 @@ function App() {
 
   const toggleModalShown = () => setModalShown(!isModalShown);
 
-  
+
   async function fetchAllColumns() {
     const res = await fetch("http://localhost:4000/columns");
     const {data} = await res.json();
@@ -45,9 +45,9 @@ function App() {
     fetchAllTasks();
   }
 
-  // function handleAddTask(column_id: number) {
-
-  // }
+  function handleAddTask() {
+    alert("Add to task")
+  }
 
 
   const propsAllStages = {
@@ -55,6 +55,14 @@ function App() {
     allTasks: allTasks,
     handleTaskMoving: handleTaskMoving,
     toggleModalShown: toggleModalShown,
+  }
+
+  const propsModalBox = {
+    isModalShown: isModalShown,
+    toggleModalShown: toggleModalShown,
+    modalInput: modalInput,
+    setModalInput:setModalInput,
+    handleAddTask: handleAddTask
   }
 
 
@@ -65,9 +73,9 @@ function App() {
       </div>
       <AddStages/>
       <AllStages {...propsAllStages}/>
-      <ModalBox isModalShown={isModalShown} toggleModalShown={toggleModalShown} modalInput={modalInput} setModalInput={setModalInput}/>
+      <ModalBox {...propsModalBox}/>
     </div>
   );
 }
-// modalInput={modalInput} setModalInput={setModalInput}
+
 export default App;
