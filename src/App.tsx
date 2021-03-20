@@ -14,6 +14,8 @@ function App() {
   const [modalInput, setModalInput] = useState("");
   const [mColumnSelect, setMColumnSelect] = useState(0);
 
+  const mColumnName = columns.find((item) => item.id === mColumnSelect)?.name;
+
   const toggleModalShown = () => setModalShown(!isModalShown);
 
 
@@ -84,7 +86,8 @@ function App() {
     toggleModalShown: toggleModalShown,
     modalInput: modalInput,
     setModalInput:setModalInput,
-    handleAddTask: handleAddTask
+    handleAddTask: handleAddTask,
+    columnName: mColumnName
   }
 
 

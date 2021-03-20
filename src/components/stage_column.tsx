@@ -4,6 +4,7 @@ import "./components.css";
 import { Task } from "./task";
 import { IColumns, ITask } from "./interface";
 
+
 interface IStageColumn {
     name: string,
     id: number,
