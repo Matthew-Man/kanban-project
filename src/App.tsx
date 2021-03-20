@@ -57,6 +57,7 @@ function App() {
   useEffect(() => {fetchAllTasks()}, []);
   
   
+  // Main Event Handlers -------------
   async function handleTaskMoving(direction: string, taskId: number, stage_id: number) {
     let newStageId: number;
     if (direction === "left") {
