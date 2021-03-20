@@ -17,6 +17,7 @@ function App() {
   const toggleModalShown = () => setModalShown(!isModalShown);
 
 
+  //Main API requests --------
   async function fetchAllColumns() {
     const res = await fetch("http://localhost:4000/columns");
     const {data} = await res.json();
@@ -62,8 +63,8 @@ function App() {
     fetchAllTasks();
   }
 
-  function handleAddTask() {
-    sendNewTask(modalInput, mColumnSelect);
+  async function handleAddTask() {
+    await sendNewTask(modalInput, mColumnSelect);
     setModalInput("");
     setModalShown(false);
     fetchAllTasks();
