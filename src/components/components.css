@@ -46,17 +46,9 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    background-color: #f7f7f7;
     box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.2);
     flex-shrink: 0;
-}
-
-.task-container {
-    width: auto;
-    height: auto;
-    background-color: rgb(211, 211, 211);
-    margin-top: 5px;
-    margin-bottom: 5px;
-    padding: 10px;
 }
 
 .add-task {
@@ -71,6 +63,39 @@
     flex-wrap: nowrap;
     align-items: flex-start;
     overflow: auto;
+}
+
+/* Task Component */
+.task-container {
+    width: auto;
+    height: auto;
+    background-color: rgb(255, 255, 255);
+    /* border: 1px grey solid; */
+    box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 10px;
+}
+
+.task-move-button {
+    display:inline-block;
+    padding:0.3em 1em;
+    border:0.16em solid #a7c1db;
+    margin:0 0.2em 0.2em 0;
+    box-sizing: border-box;
+    text-decoration:none;
+    text-transform:uppercase;
+    font-family:'Roboto',sans-serif;
+    font-weight:400;
+    color:#4274a3;
+    text-align:center;
+    background-color: in;
+    transition: all 0.15s;
+}
+
+.task-move-button:hover {
+    border-color: #1d4162;
+    color: #1d4162;
 }
 
 /* Modal Styling */
@@ -118,13 +143,15 @@
     display:inline-block;
     padding:0.5em 3em;
     border:0.16em solid #1d4162;
-    margin:0 0.3em 0.3em 0;
+    /* margin:0 0.3em 0.3em 0; */
     box-sizing: border-box;
     text-decoration:none;
     text-transform:uppercase;
     font-family:'Roboto',sans-serif;
     font-weight:400;
+    background-color: white;
     color:#1d4162;
+    box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.2);
     text-align:center;
     transition: all 0.15s;
 }
@@ -132,5 +159,9 @@
 .modal-button:hover {
     background-color: #1d4162;
     color: #fff;
+}
+
+.no-shadow {
+    box-shadow: none;
 }
 

@@ -14,6 +14,8 @@ function App() {
   const [modalInput, setModalInput] = useState("");
   const [mColumnSelect, setMColumnSelect] = useState(0);
 
+  // const baseURL = "https://matts-kanban-project-server.herokuapp.com"
+  const baseURL = "http://localhost:4000"
   const mColumnName = columns.find((item) => item.id === mColumnSelect)?.name;
 
   const toggleModalShown = () => setModalShown(!isModalShown);
@@ -21,14 +23,14 @@ function App() {
 
   //Main API requests --------
   async function fetchAllColumns() {
-    const res = await fetch("http://localhost:4000/columns");
+    const res = await fetch(`${baseURL}/columns`);
     const {data} = await res.json();
     setColumns(data);
   };
 
 
   async function fetchAllTasks() {
-    const res = await fetch("http://localhost:4000/tasks/all");
+    const res = await fetch(`${baseURL}/tasks/all`);
     const {data} = await res.json();
     setAllTasks(data);
   }
@@ -39,7 +41,7 @@ function App() {
       "stageId": columnId,
       "taskDescription": taskDescription
     }
-    const res = await fetch("http://localhost:4000/tasks/new", {
+    const res = await fetch(`${baseURL}/tasks/new`, {
       method: "PUT",
       body: JSON.stringify(data), // body data type must match "Content-Type" header
       headers:{
@@ -63,7 +65,7 @@ function App() {
     } else {
       newStageId = stage_id + 1
     }
-    await fetch(`http://localhost:4000/tasks/${taskId}/${newStageId}`, {method: "PUT"});
+    await fetch(`${baseURL}/tasks/${taskId}/${newStageId}`, {method: "PUT"});
     fetchAllTasks();
   }
   
@@ -77,7 +79,7 @@ function App() {
   
 
   async function handleDeleteTask(taskId: number) {
-    await fetch(`http://localhost:4000/tasks/${taskId}`, {method: "DELETE"});
+    await fetch(`${baseURL}/tasks/${taskId}`, {method: "DELETE"});
     fetchAllTasks();
   }
 
