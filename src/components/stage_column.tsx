@@ -12,7 +12,8 @@ interface IStageColumn {
     handleTaskMoving: (direction: string, taskId: number, stage_id: number) => Promise<void>,
     maxColumns: number
     toggleModalShown: () => void
-    setMColumnSelect: React.Dispatch<React.SetStateAction<number>>
+    setMColumnSelect: React.Dispatch<React.SetStateAction<number>>,
+    handleDeleteTask: (taskId: number) => void
 }
 
 interface AllStagesProps {
@@ -20,11 +21,12 @@ interface AllStagesProps {
     allTasks: ITask[],
     handleTaskMoving: (direction: string, taskId: number, stage_id: number) => Promise<void>,
     toggleModalShown: () => void,
-    setMColumnSelect: React.Dispatch<React.SetStateAction<number>>
+    setMColumnSelect: React.Dispatch<React.SetStateAction<number>>,
+    handleDeleteTask: (taskId: number) => void
 }
 
 
-export default function AllStages({columns, allTasks, handleTaskMoving, toggleModalShown, setMColumnSelect} : AllStagesProps) {
+export default function AllStages({columns, allTasks, handleTaskMoving, toggleModalShown, setMColumnSelect, handleDeleteTask} : AllStagesProps) {
     const maxColumns = columns.length;
 
     function createStageColumn(column: IColumns) {
@@ -37,7 +39,8 @@ export default function AllStages({columns, allTasks, handleTaskMoving, toggleMo
             handleTaskMoving: handleTaskMoving,
             maxColumns: maxColumns,
             toggleModalShown: toggleModalShown,
-            setMColumnSelect: setMColumnSelect
+            setMColumnSelect: setMColumnSelect,
+            handleDeleteTask: handleDeleteTask
         }
         return (
             <StageColumn {...propsStageColumn}/>
@@ -52,12 +55,12 @@ export default function AllStages({columns, allTasks, handleTaskMoving, toggleMo
 }
 
 
-function StageColumn({name, id, columnTasks, handleTaskMoving, maxColumns, toggleModalShown, setMColumnSelect}: IStageColumn) {
+function StageColumn({name, id, columnTasks, handleTaskMoving, maxColumns, toggleModalShown, setMColumnSelect, handleDeleteTask}: IStageColumn) {
     return (
         <div className="stage-column-container">
-            <h3>{name} (2) (id:{id})</h3>
+            <h3>{name} ({columnTasks.length})</h3>
             <br/>
-            {columnTasks.map((item) => <Task task={item} handleTaskMoving={handleTaskMoving} maxColumns={maxColumns} key={item.id}/>)}
+            {columnTasks.map((item) => <Task task={item} handleTaskMoving={handleTaskMoving} maxColumns={maxColumns} key={item.id} handleDeleteTask={handleDeleteTask}/>)}
             <button className="modal-button" onClick={() => {setMColumnSelect(id); toggleModalShown()}}><FontAwesomeIcon icon={faPlus}/> Add Task</button>
         </div>
     )

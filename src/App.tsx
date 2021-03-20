@@ -50,10 +50,12 @@ function App() {
   }
 
 
+  
+  
   useEffect(() => {fetchAllColumns()}, []);
   useEffect(() => {fetchAllTasks()}, []);
   
-
+  
   async function handleTaskMoving(direction: string, taskId: number, stage_id: number) {
     let newStageId: number;
     if (direction === "left") {
@@ -64,11 +66,18 @@ function App() {
     await fetch(`http://localhost:4000/tasks/${taskId}/${newStageId}`, {method: "PUT"});
     fetchAllTasks();
   }
+  
 
   async function handleAddTask() {
     await sendNewTask(modalInput, mColumnSelect);
     setModalInput("");
     setModalShown(false);
+    fetchAllTasks();
+  }
+  
+
+  async function handleDeleteTask(taskId: number) {
+    await fetch(`http://localhost:4000/tasks/${taskId}`, {method: "DELETE"});
     fetchAllTasks();
   }
 
@@ -78,7 +87,8 @@ function App() {
     allTasks: allTasks,
     handleTaskMoving: handleTaskMoving,
     toggleModalShown: toggleModalShown,
-    setMColumnSelect: setMColumnSelect
+    setMColumnSelect: setMColumnSelect,
+    handleDeleteTask: handleDeleteTask
   }
 
   const propsModalBox = {
