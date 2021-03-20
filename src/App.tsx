@@ -29,6 +29,22 @@ function App() {
     setAllTasks(data);
   }
 
+  
+  async function sendNewTask(taskDescription: string, columnId: number) {
+    const data = {
+      "stageId": columnId,
+      "taskDescription": taskDescription
+    }
+    const res = await fetch("http://localhost:4000/tasks/new", {
+      method: "PUT",
+      body: JSON.stringify(data), // body data type must match "Content-Type" header
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })
+    console.log(await res.json())
+  }
+
 
   useEffect(() => {fetchAllColumns()}, []);
   useEffect(() => {fetchAllTasks()}, []);
@@ -46,7 +62,7 @@ function App() {
   }
 
   function handleAddTask() {
-    alert("Add to task")
+    sendNewTask(modalInput, 1)
   }
 
 
