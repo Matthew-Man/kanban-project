@@ -70,10 +70,14 @@ function App() {
   
 
   async function handleAddTask() {
-    await sendNewTask(modalInput, mColumnSelect);
-    setModalInput("");
-    setModalShown(false);
-    fetchAllTasks();
+    if (modalInput === "") {
+      alert("Oops, looks like you haven't written anything for this new task. Add a description and resubmit 😊")
+    } else {
+      await sendNewTask(modalInput, mColumnSelect);
+      setModalInput("");
+      setModalShown(false);
+      fetchAllTasks();
+    }
   }
   
 
