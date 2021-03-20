@@ -13,8 +13,8 @@ export function AddStages({addColumnInput, setAddColumnInput, handleAddColumn}: 
         <div className="outer-container">
             <div className="stage-container">
                 <input type="text" value={addColumnInput} onChange={(e) => setAddColumnInput(e.target.value)} placeholder="Add a new stage..."/>
-                <button onClick={() => handleAddColumn()}><FontAwesomeIcon icon={faPlus}/> Add Column</button>
-                <button className="edit-columns" onClick={() => alert("I do not do anything yet...sorry 😅")}>Edit columns</button>
+                <button className="no-focus" onClick={() => handleAddColumn()}><FontAwesomeIcon icon={faPlus}/> Add Column</button>
+                <button className="edit-columns no-focus" onClick={() => alert("I do not do anything yet...sorry 😅")}>Edit columns</button>
             </div>
         </div>
     )

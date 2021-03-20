@@ -1,3 +1,10 @@
+/* Global  */
+.no-focus:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+
 /* Add Stage Component */
 .outer-container {
     border-bottom: 0.5px solid #edf0f2;
@@ -43,7 +50,6 @@
 .edit-columns {
     float: right;
 }
-
 
 /* Column Component */
 .stage-column-container {
