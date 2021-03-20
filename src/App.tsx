@@ -84,16 +84,20 @@ function App() {
 
 
   async function handleAddColumn() {
-    const data = {columnName: addColumnInput}
-    const res = await fetch(`${baseURL}/columns`, {
-      method: "PUT",
-      body: JSON.stringify(data), // body data type must match "Content-Type" header
-      headers:{
-        'Content-Type': 'application/json'
-      }
-    })
-    console.log(await res.json())
-    setAddColumnInput("");
+    if (addColumnInput === "") {
+      alert("Oops, looks like you haven't given this new column a name. Give it a name and resubmit 😊")
+    } else {
+      const data = {columnName: addColumnInput}
+      const res = await fetch(`${baseURL}/columns`, {
+        method: "PUT",
+        body: JSON.stringify(data), // body data type must match "Content-Type" header
+        headers:{
+          'Content-Type': 'application/json'
+        }
+      })
+      console.log(await res.json())
+      setAddColumnInput("");
+    }
   }
 
 
