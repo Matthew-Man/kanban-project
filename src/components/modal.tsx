@@ -6,7 +6,6 @@ interface IModal {
     modalInput: string,
     setModalInput: React.Dispatch<React.SetStateAction<string>>,
     handleAddTask: () => void
-    // column_id: number;
 }
 
 

@@ -11,17 +11,19 @@ interface IStageColumn {
     handleTaskMoving: (direction: string, taskId: number, stage_id: number) => Promise<void>,
     maxColumns: number
     toggleModalShown: () => void
+    setMColumnSelect: React.Dispatch<React.SetStateAction<number>>
 }
 
 interface AllStagesProps {
     columns: IColumns[],
     allTasks: ITask[],
     handleTaskMoving: (direction: string, taskId: number, stage_id: number) => Promise<void>,
-    toggleModalShown: () => void
+    toggleModalShown: () => void,
+    setMColumnSelect: React.Dispatch<React.SetStateAction<number>>
 }
 
 
-export default function AllStages({columns, allTasks, handleTaskMoving, toggleModalShown} : AllStagesProps) {
+export default function AllStages({columns, allTasks, handleTaskMoving, toggleModalShown, setMColumnSelect} : AllStagesProps) {
     const maxColumns = columns.length;
 
     function createStageColumn(column: IColumns) {
@@ -33,7 +35,8 @@ export default function AllStages({columns, allTasks, handleTaskMoving, toggleMo
             key: column.id,
             handleTaskMoving: handleTaskMoving,
             maxColumns: maxColumns,
-            toggleModalShown: toggleModalShown
+            toggleModalShown: toggleModalShown,
+            setMColumnSelect: setMColumnSelect
         }
         return (
             <StageColumn {...propsStageColumn}/>
@@ -48,13 +51,13 @@ export default function AllStages({columns, allTasks, handleTaskMoving, toggleMo
 }
 
 
-function StageColumn({name, id, columnTasks, handleTaskMoving, maxColumns, toggleModalShown}: IStageColumn) {
+function StageColumn({name, id, columnTasks, handleTaskMoving, maxColumns, toggleModalShown, setMColumnSelect}: IStageColumn) {
     return (
         <div className="stage-column-container">
             <h3>{name} (2) (id:{id})</h3>
             <br/>
             {columnTasks.map((item) => <Task task={item} handleTaskMoving={handleTaskMoving} maxColumns={maxColumns} key={item.id}/>)}
-            <button className="modal-button" onClick={() => toggleModalShown()}><FontAwesomeIcon icon={faPlus}/> Add Task</button>
+            <button className="modal-button" onClick={() => {setMColumnSelect(id); toggleModalShown()}}><FontAwesomeIcon icon={faPlus}/> Add Task</button>
         </div>
     )
 };

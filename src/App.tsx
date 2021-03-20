@@ -12,6 +12,7 @@ function App() {
   const [allTasks, setAllTasks] = useState<ITask[]>([]);
   const [isModalShown, setModalShown] = useState(false);
   const [modalInput, setModalInput] = useState("");
+  const [mColumnSelect, setMColumnSelect] = useState(0);
 
   const toggleModalShown = () => setModalShown(!isModalShown);
 
@@ -62,7 +63,10 @@ function App() {
   }
 
   function handleAddTask() {
-    sendNewTask(modalInput, 1)
+    sendNewTask(modalInput, mColumnSelect);
+    setModalInput("");
+    setModalShown(false);
+    fetchAllTasks();
   }
 
 
@@ -71,6 +75,7 @@ function App() {
     allTasks: allTasks,
     handleTaskMoving: handleTaskMoving,
     toggleModalShown: toggleModalShown,
+    setMColumnSelect: setMColumnSelect
   }
 
   const propsModalBox = {
