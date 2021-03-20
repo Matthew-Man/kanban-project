@@ -9,6 +9,7 @@ import { ModalBox } from './components/modal';
 
 function App() {
   const [columns, setColumns] = useState<IColumns[]>([]);
+  const [addColumnInput, setAddColumnInput] = useState("");
   const [allTasks, setAllTasks] = useState<ITask[]>([]);
   const [isModalShown, setModalShown] = useState(false);
   const [modalInput, setModalInput] = useState("");
@@ -51,8 +52,6 @@ function App() {
     console.log(await res.json())
   }
 
-
-  
   
   useEffect(() => {fetchAllColumns()}, []);
   useEffect(() => {fetchAllTasks()}, []);
@@ -84,6 +83,20 @@ function App() {
   }
 
 
+  async function handleAddColumn() {
+    const data = {columnName: addColumnInput}
+    const res = await fetch(`${baseURL}/columns`, {
+      method: "PUT",
+      body: JSON.stringify(data), // body data type must match "Content-Type" header
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })
+    console.log(await res.json())
+    setAddColumnInput("");
+  }
+
+
   const propsAllStages = {
     columns: columns,
     allTasks: allTasks,
@@ -102,13 +115,19 @@ function App() {
     columnName: mColumnName
   }
 
+  const propsAddStages = {
+    addColumnInput: addColumnInput,
+    setAddColumnInput: setAddColumnInput,
+    handleAddColumn: handleAddColumn
+  }
+
 
   return (
     <div>
       <div className="header">
         <h2>Matt's Kanban Board</h2>
       </div>
-      <AddStages/>
+      <AddStages {...propsAddStages}/>
       <AllStages {...propsAllStages}/>
       <ModalBox {...propsModalBox}/>
     </div>
