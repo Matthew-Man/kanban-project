@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faEllipsisH } from "@fortawesome/free-solid-svg-icons";
 import "./components.css";
 import { Task } from "./task";
 import { IColumns, ITask } from "./interface";
@@ -58,6 +58,7 @@ export default function AllStages({columns, allTasks, handleTaskMoving, toggleMo
 function StageColumn({name, id, columnTasks, handleTaskMoving, maxColumns, toggleModalShown, setMColumnSelect, handleDeleteTask}: IStageColumn) {
     return (
         <div className="stage-column-container">
+            <button className="column-menu"><FontAwesomeIcon icon={faEllipsisH}/></button>
             <h3>{name} ({columnTasks.length})</h3>
             <br/>
             {columnTasks.map((item) => <Task task={item} handleTaskMoving={handleTaskMoving} maxColumns={maxColumns} key={item.id} handleDeleteTask={handleDeleteTask}/>)}

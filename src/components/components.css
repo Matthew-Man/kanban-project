@@ -51,6 +51,10 @@
     float: right;
 }
 
+.green {
+    background-color: rgb(113, 214, 99);
+}
+
 /* Column Component */
 .stage-column-container {
     padding: 10px;
@@ -76,6 +80,19 @@
     flex-wrap: nowrap;
     align-items: flex-start;
     overflow: auto;
+}
+
+.column-menu {
+    width: 30px;
+    float: right;
+    background-color: inherit;
+    border: none;
+    color: #7e8d9c;
+    transition: all 0.2s;
+}
+
+.column-menu:hover {
+    color: #1d4162;
 }
 
 /* Task Component */
