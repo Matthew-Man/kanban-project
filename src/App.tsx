@@ -54,6 +54,11 @@ function App() {
     console.log(await res.json())
   }
 
+  async function deleteColumn(id: number) {
+    await fetch(`${baseURL}/columns/${id}`, {method: "DELETE"})
+    fetchAllColumns();
+  }
+
   
   useEffect(() => {fetchAllColumns()}, []);
   useEffect(() => {fetchAllTasks()}, []);
@@ -114,7 +119,8 @@ function App() {
     handleTaskMoving: handleTaskMoving,
     toggleModalShown: toggleModalShown,
     setMColumnSelect: setMColumnSelect,
-    handleDeleteTask: handleDeleteTask
+    handleDeleteTask: handleDeleteTask,
+    deleteColumn: deleteColumn
   }
 
   const propsModalBox = {
@@ -146,5 +152,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;
