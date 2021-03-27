@@ -102,7 +102,7 @@ function App() {
     } else {
       const data = {columnName: addColumnInput}
       await fetch(`${baseURL}/columns`, {
-        method: "PUT",
+        method: "POST",
         body: JSON.stringify(data), // body data type must match "Content-Type" header
         headers:{
           'Content-Type': 'application/json'
