@@ -8,6 +8,7 @@ import { IColumns, ITask } from "./interface";
 interface IStageColumn {
     name: string,
     id: number,
+    order_number: number,
     columnTasks: ITask[],
     handleTaskMoving: (direction: string, taskId: number, stage_id: number) => Promise<void>,
     maxColumns: number
@@ -36,6 +37,7 @@ export default function AllStages({columns, allTasks, handleTaskMoving, toggleMo
         const propsStageColumn = {
             name: column.name,
             id: column.id,
+            order_number: column.order_number,
             columnTasks: tasksForColumn,
             key: column.id,
             handleTaskMoving: handleTaskMoving,
@@ -58,7 +60,9 @@ export default function AllStages({columns, allTasks, handleTaskMoving, toggleMo
 }
 
 
-function StageColumn({name, id, columnTasks, handleTaskMoving, maxColumns, toggleModalShown, setMColumnSelect, handleDeleteTask, deleteColumn}: IStageColumn) {
+function StageColumn({name, id, order_number, columnTasks, handleTaskMoving, maxColumns, toggleModalShown, setMColumnSelect, handleDeleteTask, deleteColumn}: IStageColumn) {
+    const moveStageEdgeAlert = "Sorry, it looks like you've reached the edge!"
+
     async function handleDeleteColumn() {
         if (columnTasks.length > 0) {
             alert("Oops! It looks like you still have tasks in this column/stage 🤔 Please move them to another column before trying to delete...")
@@ -67,14 +71,34 @@ function StageColumn({name, id, columnTasks, handleTaskMoving, maxColumns, toggl
         }
     }
 
+    async function handleMoveStage(direction: "left" | "right", stageId: number, currentOrderN: number) {
+        if (direction === "left") {
+            if (order_number === 1) { //Check if column can move left
+                alert(moveStageEdgeAlert);
+            } else {
+                alert("move left");
+            }
+        } else { //Else move right action
+            if (order_number === maxColumns) { //Check if column can move right
+                alert(moveStageEdgeAlert);
+            } else {
+                alert("move right");
+            }
+        }
+    }
+
+
     return (
         <div className="stage-column-container">
             <div className="column-head">
                 <h3>{name} ({columnTasks.length})</h3>
                 <div className="column-menu no-focus">
-                    <p>Delete column?</p>
                     <button className="column-menu no-focus" title="Delete column?" onClick={() => handleDeleteColumn()}><FontAwesomeIcon icon={faTimes}/></button>
                 </div>
+            </div>
+            <div className="column-move">
+                <button onClick={() => handleMoveStage("left", id, order_number)}>&lt;</button>
+                <button onClick={() => handleMoveStage("right", id, order_number)}>&gt;</button>
             </div>
             <br/>
             {columnTasks.map((item) => <Task task={item} handleTaskMoving={handleTaskMoving} maxColumns={maxColumns} key={item.id} handleDeleteTask={handleDeleteTask}/>)}

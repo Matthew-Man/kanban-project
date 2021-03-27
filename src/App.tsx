@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 import { AddStages } from './components/add_stage';
 import AllStages from './components/stage_column';
@@ -16,8 +16,8 @@ function App() {
   const [mColumnSelect, setMColumnSelect] = useState(0);
   const [isEditColumn, setEditColumn] = useState(false);
 
-  const baseURL = "https://matts-kanban-project-server.herokuapp.com";
-  // const baseURL = "http://localhost:4000";
+  // const baseURL = "https://matts-kanban-project-server.herokuapp.com";
+  const baseURL = "http://localhost:4000";
   const mColumnName = columns.find((item) => item.id === mColumnSelect)?.name;
 
   const toggleModalShown = () => setModalShown(!isModalShown);
@@ -53,6 +53,7 @@ function App() {
     })
     console.log(await res.json())
   }
+
 
   async function deleteColumn(id: number) {
     await fetch(`${baseURL}/columns/${id}`, {method: "DELETE"})
