@@ -19,8 +19,8 @@ export function Task({task, handleTaskMoving, maxColumns, handleDeleteTask} : IT
         <div className="task-container">
             <p>{task_description}</p>
             <div className="task-move-container">
-                <button className="task-move-button" onClick={() => stage_id === 1 ? moveAlert : handleTaskMoving("left", id, stage_id)}>&lt;</button>
-                <button className="task-move-button" onClick={() => stage_id === maxColumns ? moveAlert : handleTaskMoving("right", id, stage_id)}>&gt;</button>
+                <button className="task-move-button" onClick={() => stage_id === 1 ? alert(moveAlert) : handleTaskMoving("left", id, stage_id)}>&lt;</button>
+                <button className="task-move-button" onClick={() => stage_id === maxColumns ? alert(moveAlert) : handleTaskMoving("right", id, stage_id)}>&gt;</button>
                 <button className="task-move-button" onClick={() => handleDeleteTask(id)}><FontAwesomeIcon icon={faTrash}/> Remove</button>
             </div>
         </div>
