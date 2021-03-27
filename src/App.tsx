@@ -16,8 +16,8 @@ function App() {
   const [mColumnSelect, setMColumnSelect] = useState(0);
   const [isEditColumn, setEditColumn] = useState(false);
 
-  // const baseURL = "https://matts-kanban-project-server.herokuapp.com";
-  const baseURL = "http://localhost:4000";
+  const baseURL = "https://matts-kanban-project-server.herokuapp.com";
+  // const baseURL = "http://localhost:4000";
   const mColumnName = columns.find((item) => item.id === mColumnSelect)?.name;
 
   const toggleModalShown = () => setModalShown(!isModalShown);
@@ -100,7 +100,10 @@ function App() {
     if (addColumnInput === "") {
       alert("Oops, looks like you haven't given this new column a name. Give it a name and resubmit 😊")
     } else {
-      const data = {columnName: addColumnInput}
+      const data = {
+        columnName: addColumnInput,
+        order_number: columns.length + 1
+      }
       await fetch(`${baseURL}/columns`, {
         method: "POST",
         body: JSON.stringify(data), // body data type must match "Content-Type" header
