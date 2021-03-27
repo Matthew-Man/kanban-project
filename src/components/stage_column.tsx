@@ -15,7 +15,8 @@ interface IStageColumn {
     toggleModalShown: () => void
     setMColumnSelect: React.Dispatch<React.SetStateAction<number>>,
     handleDeleteTask: (taskId: number) => void,
-    deleteColumn: (id: number) => void
+    deleteColumn: (id: number) => void,
+    handleUpdateStageOrderN: (stageId: number, orderNumberToSwap: number, currentOrderN: number) => Promise<void>
 }
 
 interface AllStagesProps {
@@ -25,11 +26,13 @@ interface AllStagesProps {
     toggleModalShown: () => void,
     setMColumnSelect: React.Dispatch<React.SetStateAction<number>>,
     handleDeleteTask: (taskId: number) => void,
-    deleteColumn: (id: number) => void
+    deleteColumn: (id: number) => void,
+    handleUpdateStageOrderN: (stageId: number, orderNumberToSwap: number, currentOrderN: number) => Promise<void>
 }
 
 
-export default function AllStages({columns, allTasks, handleTaskMoving, toggleModalShown, setMColumnSelect, handleDeleteTask, deleteColumn} : AllStagesProps) {
+export default function AllStages(props : AllStagesProps) {
+    const {columns, allTasks, handleTaskMoving, toggleModalShown, setMColumnSelect, handleDeleteTask, deleteColumn, handleUpdateStageOrderN} = props;
     const maxColumns = columns.length;
 
     function createStageColumn(column: IColumns) {
@@ -45,7 +48,8 @@ export default function AllStages({columns, allTasks, handleTaskMoving, toggleMo
             toggleModalShown: toggleModalShown,
             setMColumnSelect: setMColumnSelect,
             handleDeleteTask: handleDeleteTask,
-            deleteColumn: deleteColumn
+            deleteColumn: deleteColumn,
+            handleUpdateStageOrderN: handleUpdateStageOrderN
         }
         return (
             <StageColumn {...propsStageColumn}/>
@@ -60,7 +64,8 @@ export default function AllStages({columns, allTasks, handleTaskMoving, toggleMo
 }
 
 
-function StageColumn({name, id, order_number, columnTasks, handleTaskMoving, maxColumns, toggleModalShown, setMColumnSelect, handleDeleteTask, deleteColumn}: IStageColumn) {
+function StageColumn(props: IStageColumn) {
+    const {name, id, order_number, columnTasks, handleTaskMoving, maxColumns, toggleModalShown, setMColumnSelect, handleDeleteTask, deleteColumn, handleUpdateStageOrderN} = props;
     const moveStageEdgeAlert = "Sorry, it looks like you've reached the edge!"
 
     async function handleDeleteColumn() {
@@ -76,13 +81,15 @@ function StageColumn({name, id, order_number, columnTasks, handleTaskMoving, max
             if (order_number === 1) { //Check if column can move left
                 alert(moveStageEdgeAlert);
             } else {
-                alert("move left");
+                const orderNumberToSwap = currentOrderN - 1
+                handleUpdateStageOrderN(stageId, orderNumberToSwap, currentOrderN)
             }
         } else { //Else move right action
             if (order_number === maxColumns) { //Check if column can move right
                 alert(moveStageEdgeAlert);
             } else {
-                alert("move right");
+                const orderNumberToSwap = currentOrderN + 1
+                handleUpdateStageOrderN(stageId, orderNumberToSwap, currentOrderN)
             }
         }
     }

@@ -114,6 +114,34 @@ function App() {
   }
 
 
+  async function handleUpdateStageOrderN(stageId: number, orderNumberToSwap: number, currentOrderN: number) {
+    const stageToReplaceId = columns.find((item) => orderNumberToSwap === item.order_number)?.id
+    const data1 = {
+      id: stageId,
+      order_number: orderNumberToSwap
+    }
+    const data2 = {
+      id: stageToReplaceId,
+      order_number: currentOrderN
+    }
+    await fetch(`${baseURL}/columns`, {
+      method: "PUT",
+      body: JSON.stringify(data1), // body data type must match "Content-Type" header
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })
+    await fetch(`${baseURL}/columns`, {
+      method: "PUT",
+      body: JSON.stringify(data2), // body data type must match "Content-Type" header
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })
+    fetchAllColumns()
+  }
+
+
   const propsAllStages = {
     columns: columns,
     allTasks: allTasks,
@@ -121,7 +149,8 @@ function App() {
     toggleModalShown: toggleModalShown,
     setMColumnSelect: setMColumnSelect,
     handleDeleteTask: handleDeleteTask,
-    deleteColumn: deleteColumn
+    deleteColumn: deleteColumn,
+    handleUpdateStageOrderN: handleUpdateStageOrderN
   }
 
   const propsModalBox = {
