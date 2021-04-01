@@ -14,14 +14,12 @@ function App() {
   const [isModalShown, setModalShown] = useState(false);
   const [modalInput, setModalInput] = useState("");
   const [mColumnSelect, setMColumnSelect] = useState(0);
-  const [isEditColumn, setEditColumn] = useState(false);
 
   const baseURL = "https://matts-kanban-project-server.herokuapp.com";
   // const baseURL = "http://localhost:4000";
   const mColumnName = columns.find((item) => item.id === mColumnSelect)?.name;
 
   const toggleModalShown = () => setModalShown(!isModalShown);
-  const toggleEditColumn = () => setEditColumn(!isEditColumn);
 
 
   //Main API requests --------
@@ -168,9 +166,7 @@ function App() {
   const propsAddStages = {
     addColumnInput: addColumnInput,
     setAddColumnInput: setAddColumnInput,
-    handleAddColumn: handleAddColumn,
-    toggleEditColumn: toggleEditColumn,
-    isEditColumn: isEditColumn
+    handleAddColumn: handleAddColumn
   }
 
 
